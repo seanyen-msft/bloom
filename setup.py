@@ -32,6 +32,11 @@ setup(
         'bloom.generators.rpm': [
             'bloom/generators/rpm/templates/*'
         ]
+        ,
+        'bloom.generators.chocolatey': [
+            'bloom/generators/chocolatey/templates/*',
+            'bloom/generators/chocolatey/templates/source/*'
+        ]
     },
     include_package_data=True,
     install_requires=install_requires,
@@ -72,13 +77,15 @@ generation of platform specific source packages, like debian's src-debs.""",
             'debian = bloom.generators.debian:DebianGenerator',
             'rosdebian = bloom.generators.rosdebian:RosDebianGenerator',
             'rpm = bloom.generators.rpm:RpmGenerator',
-            'rosrpm = bloom.generators.rosrpm:RosRpmGenerator'
+            'rosrpm = bloom.generators.rosrpm:RosRpmGenerator',
+            'chocolatey = bloom.generators.chocolatey:ChocolateyGenerator'
         ],
         'bloom.generate_cmds': [
             'debian = bloom.generators.debian.generate_cmd:description',
             'rosdebian = bloom.generators.rosdebian:description',
             'rpm = bloom.generators.rpm.generate_cmd:description',
-            'rosrpm = bloom.generators.rosrpm:description'
+            'rosrpm = bloom.generators.rosrpm:description',
+            'chocolatey = bloom.generators.chocolatey.generate_cmd:description'
         ]
     }
 )
