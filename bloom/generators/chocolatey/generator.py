@@ -742,7 +742,7 @@ class ChocolateyGenerator(BloomGenerator):
             distro = destination.split('/')[-2]
             # Create debians for each distro
             with inbranch(destination):
-                data = self.generate_debian(package, distro)
+                data = self.generate_chocolatey(package, distro)
                 # Create the tag name for later
                 self.tag_names[destination] = self.generate_tag_name(data)
         # Update the patch configs
@@ -859,12 +859,12 @@ class ChocolateyGenerator(BloomGenerator):
             fallback_resolver=missing_dep_resolver
         )
 
-    def generate_debian(self, package, debian_distro):
-        info("Generating debian for {0}...".format(debian_distro))
+    def generate_chocolatey(self, package, chocolatey_distro):
+        info("Generating chocolatey for {0}...".format(chocolatey_distro))
         # Try to retrieve the releaser_history
         releaser_history = self.get_releaser_history()
         # Generate substitution values
-        subs = self.get_subs(package, debian_distro, releaser_history)
+        subs = self.get_subs(package, chocolatey_distro, releaser_history)
         # Use subs to create and store releaser history
         releaser_history = [(v, (n, e)) for v, _, _, n, e in subs['changelogs']]
         self.set_releaser_history(dict(releaser_history))
@@ -874,11 +874,11 @@ class ChocolateyGenerator(BloomGenerator):
         template_files = process_template_files('.', subs)
         # Remove any residual template files
         execute_command('git rm -rf ' + ' '.join(template_files))
-        # Add changes to the debian folder
-        execute_command('git add debian')
+        # Add changes to the chocolatey folder
+        execute_command('git add chocolatey')
         # Commit changes
-        execute_command('git commit -m "Generated debian files for ' +
-                        debian_distro + '"')
+        execute_command('git commit -m "Generated chocolatey files for ' +
+                        chocolatey_distro + '"')
         # Return the subs for other use
         return subs
 
@@ -893,13 +893,13 @@ class ChocolateyGenerator(BloomGenerator):
 
     def generate_branching_arguments(self, package, branch):
         n = package.name
-        # Debian branch
-        deb_branch = 'debian/' + n
-        # Branch first to the debian branch
-        args = [[deb_branch, branch, False]]
-        # Then for each debian distro, branch from the base debian branch
+        # Chocolatey branch
+        chocolatey_branch = 'chocolatey/' + n
+        # Branch first to the chocolatey branch
+        args = [[chocolatey_branch, branch, False]]
+        # Then for each chocolatey distro, branch from the base chocolatey branch
         args.extend([
-            ['debian/' + d + '/' + n, deb_branch, False] for d in self.distros
+            ['chocolatey/' + d + '/' + n, chocolatey_branch, False] for d in self.distros
         ])
         return args
 
