@@ -364,7 +364,7 @@ def generate_substitutions_from_package(
     data['Distribution'] = os_version
     # Use the time stamp to set the date strings
     stamp = datetime.datetime.now(tz.tzlocal())
-    data['Date'] = stamp.strftime('%a, %d %b %Y %T %z')
+    data['Date'] = stamp.strftime('%a, %d %b %Y %H:%M:%S %z')
     data['YYYY'] = stamp.strftime('%Y')
     # Maintainers
     maintainers = []

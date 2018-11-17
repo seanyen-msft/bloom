@@ -178,7 +178,7 @@ class temporary_directory(object):
 
 
 def get_rfc_2822_date(date):
-    return formatdate(float(date.strftime("%s")), date.tzinfo)
+    return date.strftime('%a, %d %b %Y %H:%M:%S %z')
 
 
 def load_url_to_file_handle(url, retry=2, retry_period=1, timeout=10):
