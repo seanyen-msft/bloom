@@ -42,9 +42,9 @@ from bloom.logging import error
 from bloom.logging import fmt
 from bloom.logging import info
 
-from bloom.generators.debian.generator import generate_substitutions_from_package
-from bloom.generators.debian.generator import place_template_files
-from bloom.generators.debian.generator import process_template_files
+from bloom.generators.chocolatey.generator import generate_substitutions_from_package
+from bloom.generators.chocolatey.generator import place_template_files
+from bloom.generators.chocolatey.generator import process_template_files
 
 from bloom.util import get_distro_list_prompt
 
