@@ -149,15 +149,15 @@ def __place_template_folder(group, src, dst, gbp=False):
 
 
 def place_template_files(path, build_type, gbp=False):
-    info(fmt("@!@{bf}==>@| Placing templates files in the 'debian' folder."))
-    debian_path = os.path.join(path, 'debian')
-    # Create/Clean the debian folder
-    if not os.path.exists(debian_path):
-        os.makedirs(debian_path)
+    info(fmt("@!@{bf}==>@| Placing templates files in the 'chocolatey' folder."))
+    chocolatey_path = os.path.join(path, 'chocolatey')
+    # Create/Clean the chocolatey folder
+    if not os.path.exists(chocolatey_path):
+        os.makedirs(chocolatey_path)
     # Place template files
-    group = 'bloom.generators.debian'
+    group = 'bloom.generators.chocolatey'
     templates = os.path.join('templates', build_type)
-    __place_template_folder(group, templates, debian_path, gbp)
+    __place_template_folder(group, templates, chocolatey_path, gbp)
 
 
 def summarize_dependency_mapping(data, deps, build_deps, resolved_deps):
@@ -491,12 +491,12 @@ def __process_template_folder(path, subs):
 
 
 def process_template_files(path, subs):
-    info(fmt("@!@{bf}==>@| In place processing templates in 'debian' folder."))
-    debian_dir = os.path.join(path, 'debian')
-    if not os.path.exists(debian_dir):
-        sys.exit("No debian directory found at '{0}', cannot process templates."
-                 .format(debian_dir))
-    return __process_template_folder(debian_dir, subs)
+    info(fmt("@!@{bf}==>@| In place processing templates in 'chocolatey' folder."))
+    chocolatey_dir = os.path.join(path, 'chocolatey')
+    if not os.path.exists(chocolatey_dir):
+        sys.exit("No chocolatey directory found at '{0}', cannot process templates."
+                 .format(chocolatey_dir))
+    return __process_template_folder(chocolatey_dir, subs)
 
 
 def match_branches_with_prefix(prefix, get_branches, prune=False):
