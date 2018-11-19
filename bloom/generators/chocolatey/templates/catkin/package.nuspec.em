@@ -8,7 +8,7 @@
     <description>@(Description)</description>
     <dependencies>
 @[for Depend in Depends]
-        <dependency id="@(Depend)"/>
+        <dependency id="@(Depend)" version="0.0.0.0"/>
 @[end for]
     </dependencies>
   </metadata>

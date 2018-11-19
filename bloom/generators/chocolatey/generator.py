@@ -201,8 +201,8 @@ def format_depends(depends, resolved_deps):
                 formatted.append(resolved_dep)
             else:
                 for v in version_depends:
-                    formatted.append("{0} ({1} {2})".format(
-                        resolved_dep, versions[v], getattr(d, v)))
+                    formatted.append("{0}".format(
+                        resolved_dep))
     return formatted
 
 
