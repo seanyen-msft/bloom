@@ -4,7 +4,7 @@
     <id>ros-melodic-@(Package)</id>
     <version>@(changelogs[0][0])</version>
     <title>@(Package)</title>
-    <authors>@(Maintainer)</authors>
+    <authors>test</authors>
     <projectUrl>@(Homepage)</projectUrl>
     <description>@(Description)</description>
     <dependencies>
