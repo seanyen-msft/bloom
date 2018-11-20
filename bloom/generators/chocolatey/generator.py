@@ -273,6 +273,35 @@ def missing_dep_resolver(key, peer_packages):
     return default_fallback_resolver(key, peer_packages)
 
 
+def __resolve_dependencies(
+    keys,
+    os_name,
+    os_version,
+    ros_distro=None,
+    peer_packages=None,
+    fallback_resolver=None
+):
+    ros_distro = ros_distro or DEFAULT_ROS_DISTRO
+    peer_packages = peer_packages or []
+    fallback_resolver = fallback_resolver or default_fallback_resolver
+
+    resolved_keys_pip = {}
+    resolved_keys = {}
+    keys = [k.name for k in keys]
+    for key in keys:
+        resolved_key, installer_key, default_installer_key = \
+            resolve_rosdep_key(key, os_name, os_version, ros_distro,
+                               peer_packages, retry=True)
+        if resolved_key is None:
+            resolved_key = fallback_resolver(key, peer_packages)
+        if installer_key == "pip":
+            resolved_keys_pip[key] = resolved_key
+            resolved_keys[key] = ""
+        else:
+            resolved_keys_pip[key] = ""
+            resolved_keys[key] = resolved_key
+    return resolved_keys, resolved_keys_pip
+
 def generate_substitutions_from_package(
     package,
     os_name,
@@ -311,7 +340,7 @@ def generate_substitutions_from_package(
 
     unresolved_keys = depends + build_depends + package.replaces + package.conflicts
     # The installer key is not considered here, but it is checked when the keys are checked before this
-    resolved_deps = resolve_dependencies(unresolved_keys, os_name,
+    resolved_deps, resolved_keys_pip = __resolve_dependencies(unresolved_keys, os_name,
                                          os_version, ros_distro,
                                          peer_packages + [d.name for d in package.replaces + package.conflicts],
                                          fallback_resolver)
@@ -326,6 +355,9 @@ def generate_substitutions_from_package(
     )
     data['Conflicts'] = sorted(
         set(format_depends(package.conflicts, resolved_deps))
+    )
+    data['PipDepends'] = sorted(
+        set(format_depends(depends, resolved_keys_pip))
     )
 
     # Build-type specific substitutions.

@@ -7,3 +7,6 @@ $destFolder = "@(InstallationPrefix)"
 
 # Unzip the rosdep to the specified folder
 Get-ChocolateyUnzip -FileFullPath $zipFile -Destination $destFolder -PackageName $packageName
+
+$rosdepInstall = Join-Path $toolsDir 'rosdepInstall.bat'
+c:\opt\ros\melodic\x64\env.bat "$rosdepInstall"
