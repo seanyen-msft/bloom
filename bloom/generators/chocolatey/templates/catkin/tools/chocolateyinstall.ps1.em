@@ -1,6 +1,6 @@
 $ErrorActionPreference = 'Stop'; # stop on all errors
 
-$packageName= 'package'
+$packageName= 'bin'
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $zipFile    = Join-Path $toolsDir "$packageName.zip"
 $destFolder = "@(InstallationPrefix)"

@@ -1,5 +1,5 @@
 $ErrorActionPreference = 'Stop'; # stop on all errors
 
-$packageName = 'package'
+$packageName = 'bin'
 
 Uninstall-ChocolateyZipPackage -PackageName $packageName -ZipFile "$packageName.zip"
