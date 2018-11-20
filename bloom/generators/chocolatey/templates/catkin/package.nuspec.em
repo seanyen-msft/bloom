@@ -5,7 +5,9 @@
     <version>@(Version)</version>
     <title>@(Package)</title>
     <authors>@(Maintainer)</authors>
+@[if Homepage]
     <projectUrl>@(Homepage)</projectUrl>
+@[end if]
     <description>@(Description)</description>
     <dependencies>
 @[for Depend in Depends]
