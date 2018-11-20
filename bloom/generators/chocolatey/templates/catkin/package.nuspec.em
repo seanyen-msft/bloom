@@ -4,7 +4,7 @@
     <id>ros-@(Distribution)-@(Package)</id>
     <version>@(changelogs[0][0])</version>
     <title>@(Package)</title>
-    <authors>TBD</authors>
+    <authors>@(Maintainer)</authors>
     <projectUrl>@(Homepage)</projectUrl>
     <description>@(Description)</description>
     <dependencies>
