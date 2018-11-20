@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>ros-melodic-@(Package)</id>
-    <version>@(changelogs[0][0])</version>
+    <id>ros-@(RosDistro)-@(Package)</id>
+    <version>@(Version)</version>
     <title>@(Package)</title>
-    <authors>test</authors>
+    <authors>@(Maintainer)</authors>
     <projectUrl>@(Homepage)</projectUrl>
     <description>@(Description)</description>
     <dependencies>

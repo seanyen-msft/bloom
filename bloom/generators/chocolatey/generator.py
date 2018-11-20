@@ -148,6 +148,11 @@ def __place_template_folder(group, src, dst, gbp=False):
             shutil.copystat(template_abs_path, template_dst)
 
 
+def __xml_escape(data):
+    from xml.sax.saxutils import escape
+    return escape(data)
+
+
 def place_template_files(path, build_type, gbp=False):
     info(fmt("@!@{bf}==>@| Placing templates files in the 'chocolatey' folder."))
     chocolatey_path = os.path.join(path, 'chocolatey')
@@ -273,7 +278,7 @@ def generate_substitutions_from_package(
     os_name,
     os_version,
     ros_distro,
-    installation_prefix='/usr',
+    installation_prefix='c:\\opt\\ros\\melodic\\x64',
     deb_inc=0,
     peer_packages=None,
     releaser_history=None,
@@ -285,7 +290,7 @@ def generate_substitutions_from_package(
     # Name, Version, Description
     data['Name'] = package.name
     data['Version'] = package.version
-    data['Description'] = format_description(package.description)
+    data['Description'] = __xml_escape(format_description(package.description))
     # Websites
     websites = [str(url) for url in package.urls if url.type == 'website']
     homepage = websites[0] if websites else ''
@@ -359,7 +364,7 @@ def generate_substitutions_from_package(
     maintainers = []
     for m in package.maintainers:
         maintainers.append(str(m))
-    data['Maintainer'] = maintainers[0]
+    data['Maintainer'] = __xml_escape(maintainers[0])
     data['Maintainers'] = ', '.join(maintainers)
     # Changelog
     changelogs = get_changelogs(package, releaser_history)
@@ -420,6 +425,8 @@ def generate_substitutions_from_package(
                 license_text += '\n'
             licenses.append(license_text)
     data['Copyright'] = separator.join(licenses)
+    # ROS distro
+    data['RosDistro'] = ros_distro
 
     def convertToUnicode(obj):
         if sys.version_info.major == 2:
