@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>ros-@(RosDistro)-@(Package)</id>
-    <version>@(Version)</version>
+    <version>99999999.@(Version)</version>
     <title>@(Package)</title>
     <authors>@(Maintainer)</authors>
 @[if Homepage]
